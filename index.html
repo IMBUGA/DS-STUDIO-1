@@ -998,56 +998,55 @@
         });
       }
 
-      // Form Validation Function
-      const contactForm = document.getElementById('contact-form');
-      if (contactForm) {
-        contactForm.addEventListener('submit', function(event) {
-          event.preventDefault();
-          console.log('Form submission attempted');
+// Form Validation Function
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+  contactForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    console.log('Form submission attempted');
 
-          let isValid = true;
+    let isValid = true;
 
-          // Clear previous error messages
-          const errorMessages = document.querySelectorAll('.error-message');
-          errorMessages.forEach(msg => msg.style.display = 'none');
+    // Clear previous error messages
+    const errorMessages = document.querySelectorAll('.error-message');
+    errorMessages.forEach(msg => msg.style.display = 'none');
 
-          // Get form values
-          const name = document.getElementById('name').value;
-          const email = document.getElementById('email').value;
-          const message = document.getElementById('message').value;
+    // Get form values
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
 
-          // Validate name
-          if (name === '') {
-            document.getElementById('name-error').style.display = 'block';
-            isValid = false;
-            console.log('Name validation failed');
-          }
+    // Validate name
+    if (name === '') {
+      document.getElementById('name-error').style.display = 'block';
+      isValid = false;
+      console.log('Name validation failed');
+    }
 
-          // Validate email
-          const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-          if (!emailPattern.test(email)) {
-            document.getElementById('email-error').style.display = 'block';
-            isValid = false;
-            console.log('Email validation failed');
-          }
+    // Validate email
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!emailPattern.test(email)) {
+      document.getElementById('email-error').style.display = 'block';
+      isValid = false;
+      console.log('Email validation failed');
+    }
 
-          // Validate message
-          if (message === '') {
-            document.getElementById('message-error').style.display = 'block';
-            isValid = false;
-            console.log('Message validation failed');
-          }
+    // Validate message
+    if (message === '') {
+      document.getElementById('message-error').style.display = 'block';
+      isValid = false;
+      console.log('Message validation failed');
+    }
 
-          // If form is valid, submit it
-          if (isValid) {
-            console.log('Form is valid, would submit data');
-            alert('Form submitted successfully!');
-            contactForm.reset();
-          }
-        });
-      } else {
-        console.error('Contact form not found');
-      }
+    // If form is valid, submit it to Formspree
+    if (isValid) {
+      console.log('Form is valid, submitting to Formspree');
+      contactForm.submit(); // ✅ actually sends the form
+    }
+  });
+} else {
+  console.error('Contact form not found');
+}
       
       // Add subtle hover effect to logo
       const logo = document.querySelector('.logo');
