@@ -3,8 +3,37 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-66Q0B7HZ58"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-66Q0B7HZ58');
+        </script>
+    <!-- SEO Meta Tags -->
     <title>DS Studio</title>
+    <meta name="description" content="DS Studio offers professional photography, videography, and web development services. Capturing moments and creating digital solutions in Kenya.">
+    <meta name="keywords" content="photography, videography, web development, Kenya, DS Studio, graduation photos, wedding photography">
+    <meta name="author" content="DS Studio">
+    
+    <!-- Open Graph Meta Tags for Social Media -->
+    <meta property="og:title" content="DS Studio - Professional Photography & Web Development">
+    <meta property="og:description" content="Capturing moments, creating memories. Professional photography, videography, and web development services.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dsstudio.com">
+    <meta property="og:image" content="IMAGES/DS.gif">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="DS Studio - Professional Photography & Web Development">
+    <meta name="twitter:description" content="Capturing moments, creating memories. Professional photography, videography, and web development services.">
+    <meta name="twitter:image" content="IMAGES/DS.gif">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <style>
         :root {
@@ -187,11 +216,27 @@
             text-align: center;
             border-radius: 0 0 30px 30px;
             margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Hero Glow Effect */
+        .hero-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 100%);
+            animation: glowShift 8s ease-in-out infinite;
+            z-index: 0;
         }
         
         .hero-content {
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
         
         .hero-content h1 {
@@ -448,6 +493,7 @@
         /* Forms */
         .form-group {
             margin-bottom: 1.5rem;
+            position: relative;
         }
 
         .form-group label {
@@ -458,7 +504,8 @@
         }
 
         .form-group input,
-        .form-group textarea {
+        .form-group textarea,
+        .form-group select {
             width: 100%;
             padding: 0.8rem;
             border: 1px solid #ddd;
@@ -469,8 +516,27 @@
             color: var(--text-color);
         }
         
+        /* Rate dropdown specific styling for responsiveness */
+        .form-group select#rate {
+            max-width: 100%;
+            width: 100%;
+        }
+        
+        @media (min-width: 768px) {
+            .form-group select#rate {
+                max-width: 400px; /* Good size for desktop */
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .form-group select#rate {
+                max-width: 60%; /* Full width on mobile */
+            }
+        }
+        
         .form-group input:focus,
-        .form-group textarea:focus {
+        .form-group textarea:focus,
+        .form-group select:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
@@ -478,6 +544,13 @@
 
         .form-group .error-message {
             color: red;
+            font-size: 0.85rem;
+            display: none;
+            margin-top: 5px;
+        }
+        
+        .form-group .success-message {
+            color: green;
             font-size: 0.85rem;
             display: none;
             margin-top: 5px;
@@ -588,6 +661,12 @@
             }
         }
         
+        @keyframes glowShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
@@ -597,6 +676,81 @@
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* Toast Notification Styles */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 10000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            max-width: 350px;
+        }
+        
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .toast.success {
+            background-color: #4CAF50;
+        }
+        
+        .toast.error {
+            background-color: #f44336;
+        }
+        
+        .toast .close-toast {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10px;
+            float: right;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
         }
 
         /* Responsive for mobile */
@@ -667,10 +821,74 @@
             .theme-toggle {
                 margin-left: 10px;
             }
+            
+            /* Toast notification adjustments for mobile */
+            .toast {
+                left: 20px;
+                right: 20px;
+                max-width: none;
+            }
+            
+            /* Back to top button adjustments for mobile */
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+            
+            /* Form adjustments for mobile */
+            .form-group select#rate {
+                max-width: 100% !important;
+            }
+        }
+        
+        /* Additional responsive adjustments */
+        @media (max-width: 480px) {
+            body {
+                padding-top: 70px;
+            }
+            
+            .content {
+                padding: 1.5rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-content p {
+                font-size: 0.9rem;
+            }
+            
+            .cards-container {
+                padding: 1rem;
+                gap: 1rem;
+            }
+            
+            .card h2 {
+                font-size: 1.3rem;
+            }
+            
+            .rate-card-wrapper h1, 
+            .sample-images h1 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <span id="toast-message"></span>
+        <button class="close-toast">&times;</button>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
     <!-- Navigation -->
     <div class="nav-wrapper">
         <nav>
@@ -678,7 +896,7 @@
                 <!-- Logo section with GIF -->
                 <div class="logo-container">
                     <div class="logo">
-                        <img src="IMAGES/DS.gif" alt="DS Logo" class="gif-logo">
+                        <img src="IMAGES/DS.gif" alt="DS Logo" class="gif-logo" loading="lazy">
                     </div>
                     <span class="logo-text">DS Studio</span>
                 </div>
@@ -703,7 +921,8 @@
     </div>
 
     <!-- Hero Section -->
-    <section class="hero-section">
+    <section class="hero-section" data-aos="fade-down">
+        <div class="hero-glow"></div>
         <div class="container hero-content">
             <h1>Capturing Moments, Creating Memories</h1>
             <p>Professional photography, videography, and web development services to bring your vision to life</p>
@@ -712,7 +931,7 @@
     </section>
 
     <!-- About Section -->
-    <section class="content about-wrapper" id="About">
+    <section class="content about-wrapper" id="About" data-aos="fade-up">
         <div class="about-container">
             <div class="about-text">
                 <h1>Hi, Welcome to DS Studio!</h1>
@@ -729,122 +948,122 @@
     </section>
 
     <!-- Services Section -->
-    <section class="content services" id="Services">
+    <section class="content services" id="Services" data-aos="fade-up">
         <h1>Services</h1>
         <ul>
-            <li>Photography</li>
-            <li>Videography</li>
-            <li>Web Development</li>
-            <li>Digital Marketing</li>
+            <li data-aos="fade-right">Photography</li>
+            <li data-aos="fade-right" data-aos-delay="100">Videography</li>
+            <li data-aos="fade-right" data-aos-delay="200">Web Development</li>
+            <li data-aos="fade-right" data-aos-delay="300">Digital Marketing</li>
         </ul>
     </section>
     
     <!-- Cards Section -->
-    <section class="cards-container">
-        <div class="card">
+    <section class="cards-container" data-aos="zoom-in">
+        <div class="card" data-aos="flip-left">
             <h2>GRADUATION</h2>
             <p>When you finally trade in your stress for a funny-looking hat.<br/>We are celebrating with you!</p>
-            <img src="IMAGES/GRADUATION.jpg" alt="Graduation" />
+            <img src="IMAGES/GRADUATION.jpg" alt="Graduation" loading="lazy" />
         </div>
-        <div class="card">
+        <div class="card" data-aos="flip-left" data-aos-delay="100">
             <h2>BIRTHDAY</h2>
             <p>Birthdays are just nature's way of telling us to eat more cake! Another year brighter!</p>
-            <img src="IMAGES/BIRTHDAY 1.jpeg" alt="BIRTHDAY" />
+            <img src="IMAGES/BIRTHDAY 1.jpeg" alt="BIRTHDAY" loading="lazy" />
         </div>
-        <div class="card">
+        <div class="card" data-aos="flip-left" data-aos-delay="200">
             <h2>FRIENDS</h2>
             <p>Friends are the people who know all your embarrassing stories—and still hang out with you.</p>
-            <img src="IMAGES/FRIENDS.jpg" alt="FRIENDS" />
+            <img src="IMAGES/FRIENDS.jpg" alt="FRIENDS" loading="lazy" />
         </div>
-        <div class="card">
+        <div class="card" data-aos="flip-left" data-aos-delay="300">
             <h2>OUTDOOR</h2>
             <p>Where Wi-Fi is weak but the vibes are strong!</p>
-            <img src="IMAGES/OUTDOOR.jpg" alt="OUTDOOR" />
+            <img src="IMAGES/OUTDOOR.jpg" alt="OUTDOOR" loading="lazy" />
         </div>
-        <div class="card">
+        <div class="card" data-aos="flip-left" data-aos-delay="400">
             <h2>WEDDING</h2>
             <p>Because every love story deserves a happily ever after.</p>
-            <img src="IMAGES/WEDDING 1.jpeg" alt="WEDDING" />
+            <img src="IMAGES/WEDDING 1.jpeg" alt="WEDDING" loading="lazy" />
         </div>
-        <div class="card">
+        <div class="card" data-aos="flip-left" data-aos-delay="500">
             <h2>POTRAIT</h2>
             <p>Turning moments into memories! Captured happiness.</p>
-            <img src="IMAGES/POTRAIT 1.jpg" alt="POTRAIT" />
+            <img src="IMAGES/POTRAIT 1.jpg" alt="POTRAIT" loading="lazy" />
         </div>
     </section>
 
     <!-- Sample Images Section -->
-    <section class="content sample-images">
+    <section class="content sample-images" data-aos="fade-up">
         <h1>Gallery</h1>
         <div class="image-grid">
-            <img src="IMAGES/SAMPLE 1.jpg" alt="SAMPLE 1">
-            <img src="IMAGES/SAMPLE 2.jpg" alt="Sample 2">
-            <img src="IMAGES/SAMPLE 3.jpg" alt="Sample 3">
-            <img src="IMAGES/SAMPLE 4.JPG" alt="Sample 4">
-            <img src="IMAGES/SAMPLE 5.jpg" alt="Sample 5">
-            <img src="IMAGES/SAMPLE 6.jpg" alt="Sample 6">
-            <img src="IMAGES/BIRTHDAY.jpg" alt="Sample 7">
-            <img src="IMAGES/WEDDING 2.jpeg" alt="Sample 8">
-            <img src="IMAGES/POTRAIT.jpg" alt="Sample 9">
-            <img src="IMAGES/WEDDING 3.jpeg" alt="Sample 10">
-            <img src="IMAGES/SAMPLE 9.JPG" alt="Sample 10">
-            <img src="IMAGES/WEDDING.jpeg" alt="Sample 11">
+            <img src="IMAGES/SAMPLE 1.jpg" alt="SAMPLE 1" data-aos="zoom-in" loading="lazy">
+            <img src="IMAGES/SAMPLE 2.jpg" alt="Sample 2" data-aos="zoom-in" data-aos-delay="100" loading="lazy">
+            <img src="IMAGES/SAMPLE 3.jpg" alt="Sample 3" data-aos="zoom-in" data-aos-delay="200" loading="lazy">
+            <img src="IMAGES/SAMPLE 4.JPG" alt="Sample 4" data-aos="zoom-in" data-aos-delay="300" loading="lazy">
+            <img src="IMAGES/SAMPLE 5.jpg" alt="Sample 5" data-aos="zoom-in" data-aos-delay="400" loading="lazy">
+            <img src="IMAGES/SAMPLE 6.jpg" alt="Sample 6" data-aos="zoom-in" data-aos-delay="500" loading="lazy">
+            <img src="IMAGES/BIRTHDAY.jpg" alt="Sample 7" data-aos="zoom-in" data-aos-delay="600" loading="lazy">
+            <img src="IMAGES/WEDDING 2.jpeg" alt="Sample 8" data-aos="zoom-in" data-aos-delay="700" loading="lazy">
+            <img src="IMAGES/POTRAIT.jpg" alt="Sample 9" data-aos="zoom-in" data-aos-delay="800" loading="lazy">
+            <img src="IMAGES/WEDDING 3.jpeg" alt="Sample 10" data-aos="zoom-in" data-aos-delay="900" loading="lazy">
+            <img src="IMAGES/SAMPLE 9.JPG" alt="Sample 10" data-aos="zoom-in" data-aos-delay="1000" loading="lazy">
+            <img src="IMAGES/WEDDING 4.jpeg" alt="Sample 11" data-aos="zoom-in" data-aos-delay="1100" loading="lazy">
         </div>
     </section>
 
     <!-- Rate Card Section -->
-    <section class="content rate-card-wrapper" id="rate-card">
-        <h1>Our Rate Card</h1>
+    <section class="content rate-card-wrapper" id="rate-card" data-aos="fade-up">
+        <h1 data-aos="fade-up">Our Rate Card</h1>
         <div class="card-grid">
-            <div class="rate-card">
+            <div class="rate-card" data-aos="zoom-in">
                 <div class="rate-title">Portrait Photography</div>
                 <div class="rate-price">KES 2,500</div>
                 <div class="rate-details">30-minute session · 10 edited photos · 1 outfit change</div>
             </div>
 
-            <div class="rate-card">
+            <div class="rate-card" data-aos="zoom-in" data-aos-delay="100">
                 <div class="rate-title">Event Coverage</div>
                 <div class="rate-price">KES 8,000</div>
                 <div class="rate-details">3 hours · 100+ edited photos · On-site shooting</div>
             </div>
 
-            <div class="rate-card">
+            <div class="rate-card" data-aos="zoom-in" data-aos-delay="200">
                 <div class="rate-title">Wedding Package</div>
                 <div class="rate-price">KES 25,000</div>
                 <div class="rate-details">Full-day coverage · 300+ edited photos · Album included</div>
             </div>
 
-            <div class="rate-card">
+            <div class="rate-card" data-aos="zoom-in" data-aos-delay="300">
                 <div class="rate-title">Videography (Events)</div>
                 <div class="rate-price">KES 10,000</div>
                 <div class="rate-details">Up to 3 hours · 4K video · Highlight reel included</div>
             </div>
 
-            <div class="rate-card">
+            <div class="rate-card" data-aos="zoom-in" data-aos-delay="400">
                 <div class="rate-title">Studio Session</div>
                 <div class="rate-price">KES 3,500</div>
                 <div class="rate-details">45 minutes · Studio props · 15 edited photos</div>
             </div>
 
-            <div class="rate-card">
+            <div class="rate-card" data-aos="zoom-in" data-aos-delay="500">
                 <div class="rate-title">Drone Coverage</div>
                 <div class="rate-price">KES 5,000+</div>
                 <div class="rate-details">Aerial shots · Licensed drone operator · Subject to location</div>
             </div>
 
-            <div class="rate-card">
+            <div class="rate-card" data-aos="zoom-in" data-aos-delay="600">
                 <div class="rate-title">Social Media Content</div>
                 <div class="rate-price">KES 6,000</div>
                 <div class="rate-details">Photo + video reels · Ideal for influencers & brands</div>
             </div>
 
-            <div class="rate-card">
+            <div class="rate-card" data-aos="zoom-in" data-aos-delay="700">
                 <div class="rate-title">Product Photography</div>
                 <div class="rate-price">KES 4,000</div>
                 <div class="rate-details">20 product shots · White/transparent background</div>
             </div>
             
-            <div class="rate-card">
+            <div class="rate-card" data-aos="zoom-in" data-aos-delay="800">
                 <div class="rate-title">Web Development</div>
                 <div class="rate-price">KES 15,000+</div>
                 <div class="rate-details">Custom websites · E-commerce solutions · SEO optimized</div>
@@ -852,29 +1071,45 @@
         </div>
     </section>
 
-    <!-- Contact Form Section -->
-    <section class="content form-validation" id="Contact">
-        <h1>Contact Us</h1>
-        <form action="https://formspree.io/f/mdklqavy" method="POST" id="contact-form">
-            <div id="form-status" aria-live="polite" style="position: absolute; left:-9999px;"></div>
-            <div class="form-group">
-                <label for="name">Full Name:</label>
-                <input type="text" id="name" name="name" autocomplete="name" placeholder="Khalif Imbuga? Harry Potter? Just be honest 😂😂" required>
-                <span class="error-message" id="name-error">Name is required</span>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" autocomplete="email" placeholder="Example; danmarksande@gmail.com" required>
-                <span class="error-message" id="email-error">Please enter a valid email</span>
-            </div>
-            <div class="form-group">
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" autocomplete="off" placeholder="Love letters, complaints, or memes welcome 😂! We read everything… even at 3AM ☕" required></textarea>
-                <span class="error-message" id="message-error">Message cannot be empty!</span>
-            </div>
-            <button type="submit">Send Message</button>
-        </form>
-    </section>
+   <!-- Contact Form Section -->
+<section class="content form-validation" id="Contact">
+    <h1 data-aos="fade-up">Contact Us</h1>
+        <div id="form-status" aria-live="polite" style="position: absolute; left:-9999px;"></div>
+
+        <div class="form-group" data-aos="fade-right">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" autocomplete="name" placeholder="Just be honest 😂😂" required>
+            <span class="error-message" id="name-error">Name is required</span>
+            <span class="success-message" id="name-success">Looks good!</span>
+        </div>
+
+        <div class="form-group" data-aos="fade-right" data-aos-delay="150">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" autocomplete="email" placeholder="Example; sandedanmarc@gmail.com" required>
+            <span class="error-message" id="email-error">Please enter a valid email</span>
+            <span class="success-message" id="email-success">Valid email!</span>
+        </div>
+
+        <div class="form-group" data-aos="fade-right" data-aos-delay="300">
+            <label for="rate">Select Rate Card:</label>
+            <select id="rate" name="rate" required>
+                <option value="">-- Select --</option>
+                <!-- JS will inject options here -->
+            </select>
+            <span class="error-message" id="rate-error">Please select a rate option</span>
+            <span class="success-message" id="rate-success">Rate selected!</span>
+        </div>
+
+        <div class="form-group" data-aos="fade-right" data-aos-delay="450">
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" autocomplete="off" placeholder="Love letters, complaints, or memes welcome 😂! We read everything… even at 3AM ☕" required></textarea>
+            <span class="error-message" id="message-error">Message cannot be empty!</span>
+            <span class="success-message" id="message-success">Great message!</span>
+        </div>
+
+        <button type="submit" data-aos="zoom-in">Send Message</button>
+    </form>
+</section>
 
     <!-- Footer -->
     <footer>
@@ -910,7 +1145,15 @@
         </div>
     </footer>
 
+    <!-- AOS Animation Script -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+        });
+
         // Theme Toggle Functionality
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = themeToggle.querySelector('i');
@@ -1001,92 +1244,258 @@
             } else {
                 navWrapper.classList.remove('scrolled');
             }
+            
+            // Show/hide back to top button
+            const backToTop = document.getElementById('backToTop');
+            if (window.scrollY > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
         });
 
-        // Form Validation Function
-        const contactForm = document.getElementById('contact-form');
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                console.log('Form submission attempted');
-
-                let isValid = true;
-
-                // Clear previous error messages
-                const errorMessages = document.querySelectorAll('.error-message');
-                errorMessages.forEach(msg => msg.style.display = 'none');
-
-                // Get form values
-                const name = document.getElementById('name').value;
-                const email = document.getElementById('email').value;
-                const message = document.getElementById('message').value;
-
-                // Validate name
-                if (name === '') {
-                    document.getElementById('name-error').style.display = 'block';
-                    isValid = false;
-                    console.log('Name validation failed');
-                }
-
-                // Validate email
-                const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-                if (!emailPattern.test(email)) {
-                    document.getElementById('email-error').style.display = 'block';
-                    isValid = false;
-                    console.log('Email validation failed');
-                }
-
-                // Validate message
-                if (message === '') {
-                    document.getElementById('message-error').style.display = 'block';
-                    isValid = false;
-                    console.log('Message validation failed');
-                }
-
-                // If form is valid, submit it to Formspree
-                if (isValid) {
-                    const status = document.getElementById('form-status');
-                    status.textContent = 'Sending message...';
-                    // disable submit to prevent double submit
-                    const btn = contactForm.querySelector('button[type="submit"]');
-                    btn.disabled = true;
-                    btn.textContent = 'Sending...';
-                    
-                    // Submit the form
-                    fetch(contactForm.action, {
-                        method: 'POST',
-                        body: new FormData(contactForm),
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    }).then(response => {
-                        if (response.ok) {
-                            status.textContent = 'Message sent successfully!';
-                            contactForm.reset();
-                            btn.textContent = 'Message Sent!';
-                        } else {
-                            response.json().then(data => {
-                                if (data.errors) {
-                                    status.textContent = data.errors.map(error => error.message).join(', ');
-                                } else {
-                                    status.textContent = 'Oops! There was a problem submitting your form';
-                                }
-                            });
-                        }
-                    }).catch(error => {
-                        status.textContent = 'Oops! There was a problem submitting your form';
-                    }).finally(() => {
-                        setTimeout(() => {
-                            btn.disabled = false;
-                            btn.textContent = 'Send Message';
-                        }, 3000);
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
                     });
                 }
             });
-        } else {
-            console.error('Contact form not found');
+        });
+
+        // Back to top functionality
+        document.getElementById('backToTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // === Populate Rate Card dropdown from #rate-card ===
+        document.addEventListener('DOMContentLoaded', () => {
+            const rateSelect = document.getElementById('rate');
+            if (!rateSelect) return;
+
+            if (rateSelect.options.length > 1) return;
+
+            const rateCardSection = document.getElementById('rate-card');
+            let titleElements = [];
+            if (rateCardSection) {
+                titleElements = Array.from(rateCardSection.querySelectorAll('.rate-title'));
+            }
+
+            if (titleElements.length === 0) {
+                const rateCards = Array.from(document.querySelectorAll('.rate-card'));
+                rateCards.forEach(card => {
+                    const t = card.querySelector('.rate-title') || card.firstElementChild;
+                    if (t) titleElements.push(t);
+                });
+            }
+
+            titleElements.forEach(el => {
+                const text = el.textContent.trim();
+                if (!text) return;
+                const opt = document.createElement('option');
+                opt.value = text;
+                opt.textContent = text;
+                rateSelect.appendChild(opt);
+            });
+            
+            // Auto-fill message when rate is selected
+            rateSelect.addEventListener('change', function() {
+                const selectedRate = this.value;
+                if (selectedRate) {
+                    const rateCard = Array.from(document.querySelectorAll('.rate-card')).find(card => {
+                        return card.querySelector('.rate-title').textContent.trim() === selectedRate;
+                    });
+                    
+                    if (rateCard) {
+                        const price = rateCard.querySelector('.rate-price').textContent;
+                        const details = rateCard.querySelector('.rate-details').textContent;
+                        
+                        const messageTextarea = document.getElementById('message');
+                        messageTextarea.value = `I'm interested in the ${selectedRate} package (${price}). ${details}`;
+                        
+                        // Show success message for rate selection
+                        showFieldSuccess('rate');
+                    }
+                }
+            });
+        });
+
+        // === Toast Notification Functionality ===
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            
+            toast.className = `toast ${type}`;
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            // Auto-hide after 4 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
         }
         
+        // Close toast when X is clicked
+        document.querySelector('.close-toast').addEventListener('click', function() {
+            document.getElementById('toast').classList.remove('show');
+        });
+
+        // === Form Validation Functions ===
+        function showFieldError(fieldId) {
+            const errorElement = document.getElementById(`${fieldId}-error`);
+            const successElement = document.getElementById(`${fieldId}-success`);
+            
+            if (errorElement) errorElement.style.display = 'block';
+            if (successElement) successElement.style.display = 'none';
+        }
+        
+        function showFieldSuccess(fieldId) {
+            const errorElement = document.getElementById(`${fieldId}-error`);
+            const successElement = document.getElementById(`${fieldId}-success`);
+            
+            if (errorElement) errorElement.style.display = 'none';
+            if (successElement) successElement.style.display = 'block';
+        }
+        
+        function clearFieldStatus(fieldId) {
+            const errorElement = document.getElementById(`${fieldId}-error`);
+            const successElement = document.getElementById(`${fieldId}-success`);
+            
+            if (errorElement) errorElement.style.display = 'none';
+            if (successElement) successElement.style.display = 'none';
+        }
+
+        // Real-time form validation
+        document.getElementById('name').addEventListener('input', function() {
+            if (this.value.trim()) {
+                showFieldSuccess('name');
+            } else {
+                showFieldError('name');
+            }
+        });
+        
+        document.getElementById('email').addEventListener('input', function() {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (emailPattern.test(this.value.trim())) {
+                showFieldSuccess('email');
+            } else {
+                showFieldError('email');
+            }
+        });
+        
+        document.getElementById('rate').addEventListener('change', function() {
+            if (this.value) {
+                showFieldSuccess('rate');
+            } else {
+                showFieldError('rate');
+            }
+        });
+        
+        document.getElementById('message').addEventListener('input', function() {
+            if (this.value.trim()) {
+                showFieldSuccess('message');
+            } else {
+                showFieldError('message');
+            }
+        });
+
+        // === Form validation + submission ===
+        (function setupContactForm() {
+            const contactForm = document.getElementById('contact-form');
+            if (!contactForm) return;
+
+            const nameEl = document.getElementById('name');
+            const emailEl = document.getElementById('email');
+            const rateEl = document.getElementById('rate');
+            const messageEl = document.getElementById('message');
+
+            const formStatus = document.getElementById('form-status');
+
+            function validate() {
+                let isValid = true;
+
+                // Name validation
+                if (!nameEl.value.trim()) {
+                    showFieldError('name');
+                    isValid = false;
+                }
+
+                // Email validation
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(emailEl.value.trim())) {
+                    showFieldError('email');
+                    isValid = false;
+                }
+
+                // Rate validation
+                if (!rateEl || !rateEl.value || rateEl.value.trim() === '') {
+                    showFieldError('rate');
+                    isValid = false;
+                }
+
+                // Message validation
+                if (!messageEl.value.trim()) {
+                    showFieldError('message');
+                    isValid = false;
+                }
+
+                return isValid;
+            }
+
+            contactForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                if (!validate()) {
+                    showToast('Please fix the errors before submitting.', 'error');
+                    return;
+                }
+
+                formStatus.textContent = 'Sending message...';
+                const submitBtn = contactForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Sending...';
+
+                fetch(contactForm.action, {
+                    method: 'POST',
+                    body: new FormData(contactForm),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        // Show success toast
+                        showToast('Your message has been sent successfully!');
+                        contactForm.reset();
+                        
+                        // Clear all field statuses
+                        ['name', 'email', 'rate', 'message'].forEach(field => clearFieldStatus(field));
+                    } else {
+                        showToast('Oops! There was a problem submitting your form.', 'error');
+                    }
+                }).catch(() => {
+                    showToast('Network error while submitting the form.', 'error');
+                }).finally(() => {
+                    setTimeout(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText;
+                    }, 1500);
+                });
+            });
+        })();
+
         // Add subtle hover effect to logo
         const logo = document.querySelector('.logo');
         if (logo) {
@@ -1099,11 +1508,9 @@
                 this.style.transform = 'scale(1)';
                 this.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.15)';
             });
-        } else {
-            console.error('Logo element not found');
         }
-        
-        console.log('Navigation and form initialization complete');
+                
+        console.log('Website initialization complete');
     </script>
 </body>
 </html>
