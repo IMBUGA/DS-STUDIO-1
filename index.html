@@ -1071,9 +1071,12 @@
         </div>
     </section>
 
-   <!-- Contact Form Section -->
+  <!-- Contact Form Section -->
 <section class="content form-validation" id="Contact">
     <h1 data-aos="fade-up">Contact Us</h1>
+    
+    <!-- Added the form element with action attribute -->
+    <form id="contact-form" action="https://formspree.io/f/mdklqavy" method="POST">
         <div id="form-status" aria-live="polite" style="position: absolute; left:-9999px;"></div>
 
         <div class="form-group" data-aos="fade-right">
@@ -1107,10 +1110,10 @@
             <span class="success-message" id="message-success">Great message!</span>
         </div>
 
+        <!-- Moved the submit button INSIDE the form -->
         <button type="submit" data-aos="zoom-in">Send Message</button>
     </form>
 </section>
-
     <!-- Footer -->
     <footer>
         <div class="footer-container">
